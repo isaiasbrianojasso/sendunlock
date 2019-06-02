@@ -15,7 +15,12 @@
 Route::get('/','UsuarioController@index');//controlador del usuario
 Route::get('/admin','AdministradorController@index');//controlador del administrador
 Route::get('/agregarusuario','UsuarioController@store');//agregar usuarios 
-Route::get('/{id}','UsuarioController@destroy');//borrar usuarios 
+Route::get('/eliminarusuario/{id}','UsuarioController@destroy');//borrar usuarios 
+Route::get('/editarusuario/{id}','UsuarioController@edit');//editar usuarios 
+Route::get('/nuevaplantilla','UsuarioController@plantilla');//nueva plantilla 
+Route::get('/editaplantilla/{id}','UsuarioController@editaplantilla');//nueva plantilla 
+Route::get('/borrarplantilla/{id}','UsuarioController@borrarplantilla');//borra plantilla 
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+

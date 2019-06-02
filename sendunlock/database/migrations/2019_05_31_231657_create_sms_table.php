@@ -16,6 +16,8 @@ class CreateSmsTable extends Migration
         Schema::create('sms', function (Blueprint $table) {
             $table->bigIncrements('id');
                   //SMS
+                  $table->integer('user_id')->unsigned();//llave foranea
+                  $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');// propiedaes de la relacion eliminacion en cascada si elimnicas un usuario borras sus notas tambien
                   $table->string('modelo')->nullable();
                   $table->string('capacidad')->nullable();
                   $table->string('color')->nullable();

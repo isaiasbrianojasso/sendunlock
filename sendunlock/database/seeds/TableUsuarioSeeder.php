@@ -18,8 +18,8 @@ class TableUsuarioSeeder extends Seeder
         $user->email = 'gomezlopeznapoleon@gmail.com';
         $user->password = bcrypt('12345678');
         $user->rol = 'admin';
-        $user->fechaactivo = '15/01/1985';
-        $user->fechafinal = '15/01/2020';
+        $user->fechaactivo = '15-01-1985';
+        $user->fechafinal = '15-01-2020';
         $user->estatus = '1';
         $user->telefono = '4443565745';
         $user->creditos = 10;

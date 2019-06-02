@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Usuario;
 use App\User;
+use App\Plantilla;
+
 class UsuarioController extends Controller
 {
     /**
@@ -19,7 +21,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        return view('home',(['Usuario'=> \App\User::all()]));
+        return view('home',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all()]));
     }
   
     /**
@@ -27,9 +29,9 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( Request $request)
     {
-        //
+      
 
     }
 
@@ -44,7 +46,7 @@ class UsuarioController extends Controller
         //
         $usuario= new \App\User();
         $usuario->name=$request->get('name');
-        $usuario->password=$request->º('password');
+        $usuario->password=$request->get('password');
         $usuario->email=$request->get('email');
         $usuario->creditos=$request->get('creditos');
         $usuario->rol=$request->get('rol');
@@ -56,14 +58,19 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function plantilla(Request $request)
     {
         //
+        $usuario= new \App\Plantilla();
+        $usuario->nombreplantilla=$request->get('nombreplantilla');
+        $usuario->plantilla=$request->get('plantilla');
+        $usuario->save();
+        return back();
     }
 
     /**
@@ -72,9 +79,19 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         //
+
+        $usuario= \App\User::find($id);
+        $usuario->name=$request->get('name2');
+        $usuario->email=$request->get('email2');
+        $usuario->creditos=$request->get('creditos2');
+        $usuario->rol=$request->get('rol2');
+        $usuario->fechaactivo=$request->get('fechaactivo2');
+        $usuario->fechafinal=$request->get('fechafinal2');
+        $usuario->save();
+        return back();
     }
 
     /**
@@ -102,5 +119,38 @@ class UsuarioController extends Controller
         $table = \App\User::findOrFail($id);
         $table->delete();
         return redirect('/admin');
+    }
+
+       /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function borrarplantilla($id)
+    {
+        //
+
+        $table = \App\Plantilla::findOrFail($id);
+        $table->delete();
+        return redirect('/admin');
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editaplantilla(Request $request,$id)
+    {
+        //
+        $usuario= \App\Plantilla::find($id);
+        $usuario->nombreplantilla=$request->get('nombreplantilla5');
+        $usuario->plantilla=$request->get('plantilla5');
+        $usuario->save();
+        return back();
     }
 }

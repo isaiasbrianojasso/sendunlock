@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Administrador;
 use App\Usuario;
+use App\Plantilla;
 class AdministradorController extends Controller
 {
     /**
@@ -15,7 +16,8 @@ class AdministradorController extends Controller
     public function index()
     {
         //
-        return view('admin',(['Usuario'=> \App\User::all()]));
+        return view('admin',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all()]));
+    
     }
     public function __construct()
     {
@@ -40,6 +42,11 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario= new \App\Plantilla();
+        $usuario->nombreplantilla=$request->get('nombreplantilla');
+        $usuario->plantilla=$request->get('plantilla');
+        $usuario->save();
+        return back();
     }
 
     /**
