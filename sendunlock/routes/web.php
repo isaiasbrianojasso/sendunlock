@@ -15,5 +15,7 @@
 Route::get('/','UsuarioController@index');//controlador del usuario
 Route::get('/admin','AdministradorController@index');//controlador del administrador
 Route::get('/agregarusuario','UsuarioController@store');//agregar usuarios 
+Route::get('/{id}','UsuarioController@destroy');//borrar usuarios 
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Usuario;
+use App\User;
 class UsuarioController extends Controller
 {
     /**
@@ -43,7 +44,7 @@ class UsuarioController extends Controller
         //
         $usuario= new \App\User();
         $usuario->name=$request->get('name');
-        $usuario->password=$request->get('password');
+        $usuario->password=$request->º('password');
         $usuario->email=$request->get('email');
         $usuario->creditos=$request->get('creditos');
         $usuario->rol=$request->get('rol');
@@ -97,5 +98,9 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         //
+
+        $table = \App\User::findOrFail($id);
+        $table->delete();
+        return redirect('/admin');
     }
 }

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @extends('menu')
-<body class="has-left-bar has-top-bar  left-bar-open " style="">
 @section('menu')
+@section('html')
+<script type="text/javascript" src="js/script.js"></script>
+<body class="has-left-bar has-top-bar  left-bar-open " style="">
 <section class="wrapper-bottom-sec">
         <div class="p-30"></div>
         <div class="p-15 p-t-none p-b-none m-l-10 m-r-10"></div>
@@ -32,12 +34,20 @@
         @foreach($Usuario as $us)
         <tr>
         <td scope="row">{{$us->id}}</td>
-        <td>{{$us->name}}</td>
+        <td >{{$us->name}}</td>
         <td>{{$us->email}}</td>
-        <td>{{$us->creditos}}</td>
+        <td @if($us->creditos<=10) class="text-danger" @endif>{{$us->creditos}}</td>        
         <td>{{$us->fechaactivo}}</td>
         <td>{{$us->fechafinal}}</td>
-        <td><a class="m-1 btn btn-danger"href="">Eliminar </a> <a class="m-1 btn btn-warning" href="">Editar </a></td>
+        <td><a class="m-1 btn btn-danger" data-toggle="modal" data-target="#modalborrarusuario"  href="#modalborrarusuario"
+                data-id="{{$us->id}}"
+                data-name="{{$us->name}}"
+                data-email="{{$us->email}}"
+                data-creditos="{{$us->creditos}}"
+                data-fechaactivo="{{$us->fechaactivo}}"
+                data-fechafinal="{{$us->fechafinal}}"
+                >Eliminar</a>
+                <a class="m-1 btn btn-warning" href="">Editar </a></td>
         </tr>
         @endforeach
     </tbody>
@@ -74,7 +84,7 @@
                                               <td scope="row">{{$us->id}}</td>
                                               <td>{{$us->name}}</td>
                                               <td>{{$us->email}}</td>
-                                              <td><a class="btn btn-danger"href="">Eliminar </a> <a class="btn btn-warning" href="">Editar </a> <a  class="btn btn-info" href="">Creditos </a></td>
+                                              <td><a class="btn btn-danger"href="" >Eliminar </a> <a class="btn btn-warning" href="">Editar </a> <a  class="btn btn-info" href="">Creditos </a></td>
                                               </tr>
                                               @endforeach
                                           </tbody>
@@ -154,10 +164,24 @@
       $("body").removeClass('left-bar-open')
     }
 </script>
-</body></html>@endsection
-
-
-
+<script  type="text/javascript">
+    $(function(){
+      $('#modalborrarusuario').on('show.bs.modal', function(e){
+           $('#id1').html($(e.relatedTarget).data('id'));
+           var id = $(e.relatedTarget).data().id;
+            $(e.currentTarget).find('#id1').val(id);
+            $("#w3s").attr("href",id);
+            $('#id1').html($(e.relatedTarget).data('id'));
+            $('#name1').html($(e.relatedTarget).data('name'));
+            $('#email1').html($(e.relatedTarget).data('email'));
+            $('#creditos1').html($(e.relatedTarget).data('creditos'));
+            $('#fechaactivo1').html($(e.relatedTarget).data('fechaactivo'));
+            $('#fechafinal1').html($(e.relatedTarget).data('fechafinal'));
+            console.log(name);
+            });
+            });
+        </script>
+</body>@endsection</html>
 <!-- Modal Agregar Cliente-->
 <div class="modal fade" id="agregarusuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -201,3 +225,60 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+<!-- Modal borrar usuario -->
+<div class="modal fade" id="modalborrarusuario" tabindex="-1" role="dialog" aria-labelledby="modalborrarusuario" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seguro Deseas Borrar Usuario?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                        <div class="form-group">
+                            <label>
+                                Nombre:
+                            </label>
+                            <label id="name1" class="form-group">
+                            </label>
+                            <br>
+                            <label>
+                                Correo :
+                            </label>
+                            <label id="email1" class="form-group">
+                            </label>
+                            <br>
+                            <label>
+                                Creditos hastas ahora:
+                            </label>
+                            <label id="creditos1" class="form-group">
+                            </label>
+                            <br>
+                            <label>Fecha Inicio:</label>
+                            <label id="fechaactivo1" class="form-group">
+                            </label>
+                            <br>
+                            <label>Fecha Final:</label>
+                            <label id="fechafinal1" class="form-group"></label>
+                        </div>
+                    </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <button type="submit" class="btn btn-primary" ><a class="text-white" name="w3s" id="w3s" href="">Eliminar</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

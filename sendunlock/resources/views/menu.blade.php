@@ -1,4 +1,4 @@
-@csrf
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <nav id="left-nav" class="left-nav-bar">
         <div class="nav-top-sec">
             <div class="app-logo">
