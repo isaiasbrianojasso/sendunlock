@@ -112,7 +112,7 @@
         </div>
         <div class="p-15 p-t-none p-b-none">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12-md">
                     <div class="panel-body ">
                         <div class="row">
                             <div class="panel">
@@ -127,9 +127,7 @@
                                                         <th>Modelo</th>
                                                         <th>Color</th>
                                                         <th>Capacidad</th>
-
-      
-                                                    </tr>
+                                                </tr>
                                         </thead>
                                         <tbody>
                                                 @foreach($Modelo as $mo)
@@ -138,13 +136,16 @@
                                                 <td>{{$mo->modelo}}</td>
                                                 <td>{{$mo->color}}</td>
                                                 <td>{{$mo->capacidad}}</td>
-                                                <td><a class="btn btn-danger"href="">Eliminar </a> <a class="btn btn-warning" href="">Editar </a> <a  class="btn btn-info" href="">Creditos </a></td>
+                                                <td><a class="btn btn-danger" data-toggle="modal" data-target="#modalborrarmodelo"  href="#borrarmodelo"
+                                                    data-id="{{$mo->id}}">Eliminar </a></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
-                                        <tbody>
-                                                                                </tbody>
                                     </table>
+                                    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"  data-target="#modalmodelo">
+    Agregar Modelo
+  </button>
                                 </div>
                             </div>
                         </div>
@@ -227,6 +228,7 @@ $('#modalborrarplantilla').on('show.bs.modal', function(e){
     $("#borrarplantilla").attr("href",'/borrarplantilla/'+id);
 
 });
+
 /*
 ////////////////modal editar Plantilla
 $('#modaleditarplantilla').on('show.bs.modal', function(e){
@@ -238,7 +240,14 @@ $('#modaleditarplantilla').on('show.bs.modal', function(e){
        var id = $(e.relatedTarget).data().plantilla;
 });
 */
+////////////////modal borrar Modelo
+$('#modalborrarmodelo').on('show.bs.modal', function(e){
+       $('#id5').html($(e.relatedTarget).data('id'));
+        var id = $(e.relatedTarget).data().id;
+       $(e.currentTarget).find('#id5').val(id);
+    $("#w5s").attr("href",'/borrarmodelo/'+id);
 
+});
             });
         </script>
 </body>@endsection</html>
@@ -458,4 +467,54 @@ $('#modaleditarplantilla').on('show.bs.modal', function(e){
         </div>
     </div>
 
+<!-- Modal  Modelo-->
+<div class="modal fade" id="modalmodelo" tabindex="-1" role="dialog" aria-labelledby="modalmodelo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Modelo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ action('UsuarioController@agregarmodelo') }}">
+                    @csrf
+                    <label  for="modelo">Modelo</label>
+                   <input class="form-control" type="text" name="modelo" id="modelo" placeholder="Modelo">
+                   <label for="color">Color</label>
+                   <input class="form-control" type="text" name="color" id="color" placeholder="Color">
+                   <label for="capacidad">Capacidad</label>
+                   <input class="form-control" type="text" name="capacidad" id="capacidad" placeholder="Capacidad">
+                </div>
+               <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                   <button type="submit"  class="btn btn-primary" >Agregar Modelo</button>
+               </form>       
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal  Borrar Modelo-->
+<div class="modal fade" id="modalborrarmodelo" tabindex="-1" role="dialog" aria-labelledby="modalborrarmodelo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar Modelo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+               Seguro que quieres borrar este  Modelo?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" ><a class="text-white" name="w5s" id="w5s" href="">Eliminar</a></button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

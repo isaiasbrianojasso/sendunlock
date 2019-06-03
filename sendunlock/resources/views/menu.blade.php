@@ -10,9 +10,9 @@
             <ul class="left-navigation" id="left-navigation">    
                 <li class="active"><a href="/home"><span class="menu-text">Dashboard</span> <span class="menu-thumb"><i class="fa fa-dashboard"></i></span></a></li>
                 <li class="has-sub ">
-                    <a href="http://my.sendunlock.us/dashboard#"><span class="menu-text">Enviador SMS</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-mobile"></i></span></a>
+                    <a href="quicksms"><span class="menu-text">Enviador SMS</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-mobile"></i></span></a>
                     <ul class="sub">
-                        <li><a href="http://my.sendunlock.us/user/sms/quick-sms"><span class="menu-text">Enviar SMS</span> <span class="menu-thumb"><i class="fa fa-space-shuttle"></i></span></a></li>
+                        <li><a href="quicksms"><span class="menu-text">Enviar SMS</span> <span class="menu-thumb"><i class="fa fa-space-shuttle"></i></span></a></li>
                     </ul>
                 </li>
                 <li><a href="http://my.sendunlock.us/user/sms/sms-templates"><span class="menu-text">Mensagens Prontas</span> <span class="menu-thumb"><i class="fa fa-file-code-o"></i></span></a></li>
@@ -113,3 +113,5 @@
         </div>
     
     @yield('menu')    
+    
+    

@@ -20,6 +20,11 @@ Route::get('/editarusuario/{id}','UsuarioController@edit');//editar usuarios
 Route::get('/nuevaplantilla','UsuarioController@plantilla');//nueva plantilla 
 Route::get('/editaplantilla/{id}','UsuarioController@editaplantilla');//nueva plantilla 
 Route::get('/borrarplantilla/{id}','UsuarioController@borrarplantilla');//borra plantilla 
+Route::get('/agregarmodelo','UsuarioController@agregarmodelo');//nueva plantilla 
+Route::get('/borrarmodelo/{id}','UsuarioController@borrarmodelo');//nueva plantilla 
+
+
+Route::get('/quicksms','SmsController@index');//controlador del administrador
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

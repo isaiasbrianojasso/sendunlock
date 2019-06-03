@@ -75,6 +75,23 @@ class UsuarioController extends Controller
         return back();
     }
 
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarmodelo(Request $request)
+    {
+        //
+        $modelo= new \App\Modelo();
+        $modelo->modelo=$request->get('modelo');
+        $modelo->color=$request->get('color');
+        $modelo->capacidad=$request->get('capacidad');
+        $modelo->save();
+        return back();
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -138,7 +155,20 @@ class UsuarioController extends Controller
         return redirect('/admin');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function borrarmodelo($id)
+    {
+        //
 
+        $table = \App\Modelo::findOrFail($id);
+        $table->delete();
+        return redirect('/admin');
+    }
 
     /**
      * Show the form for editing the specified resource.
