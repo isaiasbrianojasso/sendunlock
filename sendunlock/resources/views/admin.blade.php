@@ -94,17 +94,17 @@
                                               <td scope="row">{{$pl->id}}</td>
                                               <td>{{$pl->nombreplantilla}}</td>
                                               <td>{{$pl->plantilla}}</td>
-                                              <td><a class="btn btn-danger" data-toggle="modal" data-target="#modalborrarplantilla" href="#modalborrarplantilla" data-id="{{$pl->id}}" data-nombreplantilla="{{$pl->nombreplantilla}}" data-plantilla="{{$pl->plantilla}}">Eliminar </a> <a class="btn btn-warning" data-toggle="modal" data-target="#modaleditarplantilla" data-id="{{$pl->id}}" data-nombreplantilla="{{$pl->nombreplantilla}} " data-plantilla="{{$pl->plantilla}}">Editar </a></td>
+                                              <td>
+                                            <a class="btn btn-danger" data-toggle="modal" data-target="#modalborrarplantilla" href="#modalborrarplantilla"
+                                            data-id="{{$pl->id}}">Eliminar </a></td>
                                               </tr>
                                               @endforeach
                                           </tbody>
                                       </table>
                                       <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalagregarplantilla">Agregar Plantilla</button>
-      
                                       </div>
                                       </div>
-                       
                         </div>
                     </div>
                 </div>
@@ -112,28 +112,32 @@
         </div>
         <div class="p-15 p-t-none p-b-none">
             <div class="row">
-                <div class="col-lg-12 p-none">
+                <div class="col-md-12">
                     <div class="panel-body ">
                         <div class="row">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Tickets de Soporte</h3>
+                                    <h3 class="panel-title">Modelos/Colores/Dispositivos</h3>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-hover table-ultra-responsive">
                                         <thead>
-                                        <tr>
-                                            <th style="width: 30%;">SL</th>
-                                            <th style="width: 50%;">Subject</th>
-                                            <th style="width: 20%;">Date</th>
-                                        </tr>
+                                                <tr>
+                                                        <th>#ID</th>
+                                                        <th>Modelo</th>
+                                                        <th>Color</th>
+                                                        <th>Capacidad</th>
+
+      
+                                                    </tr>
                                         </thead>
                                         <tbody>
-                                                @foreach($Usuario as $us)
+                                                @foreach($Modelo as $mo)
                                                 <tr>
-                                                <td scope="row">{{$us->id}}</td>
-                                                <td>{{$us->fechaactivo}}</td>
-                                                <td>{{$us->fechafinal}}</td>
+                                                <td scope="row">{{$mo->id}}</td>
+                                                <td>{{$mo->modelo}}</td>
+                                                <td>{{$mo->color}}</td>
+                                                <td>{{$mo->capacidad}}</td>
                                                 <td><a class="btn btn-danger"href="">Eliminar </a> <a class="btn btn-warning" href="">Editar </a> <a  class="btn btn-info" href="">Creditos </a></td>
                                                 </tr>
                                                 @endforeach
@@ -221,33 +225,19 @@ $('#modalborrarplantilla').on('show.bs.modal', function(e){
         var id = $(e.relatedTarget).data().id;
        $(e.currentTarget).find('#id3').val(id);
     $("#borrarplantilla").attr("href",'/borrarplantilla/'+id);
-    var id = $(e.relatedTarget).data().id;
-     $(e.currentTarget).find('#id3').val(id);
-
-     $(e.currentTarget).find('#nombreplantilla3').val(id);
-     var id = $(e.relatedTarget).data().nombreplantilla;
-
-     $(e.currentTarget).find('#plantilla3').val(id);
-     var id = $(e.relatedTarget).data().plantilla;
 
 });
+/*
 ////////////////modal editar Plantilla
 $('#modaleditarplantilla').on('show.bs.modal', function(e){
-       $('#id5').html($(e.relatedTarget).data('id'));
-       
-        var id = $(e.relatedTarget).data().id;
-       $(e.currentTarget).find('#id5').val(id);
        var id = $(e.relatedTarget).data().id;
        $("#editaplantilla").attr("href",'/editaplantilla/'+id);
-
-       $(e.currentTarget).find('#nombreplantilla5').val(id);
+       $(e.currentTarget).find('#nombreplantilla1').val(id);
        var id = $(e.relatedTarget).data().nombreplantilla;
-
-       $(e.currentTarget).find('#plantilla5').val(id);
+       $(e.currentTarget).find('#plantilla1').val(id);
        var id = $(e.relatedTarget).data().plantilla;
-
 });
-
+*/
 
             });
         </script>
@@ -453,15 +443,10 @@ $('#modaleditarplantilla').on('show.bs.modal', function(e){
                     <form>
                                 @csrf
                                 @method('POST')
-
-                                <label  for="id5">ID</label>
-                                <input class="form-control" type="text" name="id5" id="id5" placeholder="id" disabled>
-
                                 <label  for="nombreplantilla5">Nombre Plantilla</label>
-                               <input class="form-control" type="text" name="nombreplantilla5" id="nombreplantilla5" placeholder="Nombre de Plantilla">
-
+                               <input class="form-control" type="text" name="nombreplantilla1" id="nombreplantilla1" placeholder="Nombre de Plantilla">
                                <label for="plantilla5">Plantilla</label>
-                               <input class="form-control" type="text" name="plantilla5" id="plantilla5" placeholder="Plantilla">
+                               <input class="form-control" type="text" name="plantilla1" id="plantilla1" placeholder="Plantilla">
                             </div>
                            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                            <div class="modal-footer">

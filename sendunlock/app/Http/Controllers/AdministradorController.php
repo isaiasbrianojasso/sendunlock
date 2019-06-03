@@ -16,7 +16,7 @@ class AdministradorController extends Controller
     public function index()
     {
         //
-        return view('admin',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all()]));
+        return view('admin',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all() ]));
     
     }
     public function __construct()
@@ -42,11 +42,6 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         //
-        $usuario= new \App\Plantilla();
-        $usuario->nombreplantilla=$request->get('nombreplantilla');
-        $usuario->plantilla=$request->get('plantilla');
-        $usuario->save();
-        return back();
     }
 
     /**

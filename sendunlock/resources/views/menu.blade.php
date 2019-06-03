@@ -32,7 +32,7 @@
                 
                 @if(Auth::user()->rol=='admin')
                 <li class="has-sub ">
-                <a href="http://my.sendunlock.us/dashboard#"><span class="menu-text">Admin Area</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-envelope"></i></span></a>
+                <a href="/admin"><span class="menu-text">Admin Area</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-envelope"></i></span></a>
                         <ul class="sub">
                             <li><a href="/admin"><span class="menu-text">Panel de Admin</span> <span class="menu-thumb"><i class="fa fa-list"></i></span></a></li>
                             <li><a href=""><span class="menu-text">Tickets Soporte</span> <span class="menu-thumb"><i class="fa fa-plus"></i></span></a></li>

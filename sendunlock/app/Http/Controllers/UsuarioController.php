@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Usuario;
 use App\User;
 use App\Plantilla;
+use App\Sms;
+use App\Modelo;
 
 class UsuarioController extends Controller
 {
@@ -21,7 +23,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        return view('home',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all()]));
+        return view('home',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all()]));
     }
   
     /**
@@ -148,8 +150,8 @@ class UsuarioController extends Controller
     {
         //
         $usuario= \App\Plantilla::find($id);
-        $usuario->nombreplantilla=$request->get('nombreplantilla5');
-        $usuario->plantilla=$request->get('plantilla5');
+        $usuario->nombreplantilla=$request->get('nombreplantilla1');
+        $usuario->plantilla=$request->get('plantilla1');
         $usuario->save();
         return back();
     }
