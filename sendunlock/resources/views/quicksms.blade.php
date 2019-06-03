@@ -49,14 +49,12 @@
                                             </select>
                                         </div>
 
-
-    
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >Selecionar o Aparelho</label>
                                                     <select data-id="sms_modelo" class="btn-group bootstrap-select form-control" name="sms_modelo"  data-live-search="true" id="sms_modelo">
-                                                                                                                           @foreach ($Modelo as $mo)
-                                                                                                                           <option value="{{$mo->modelo}}">{{$mo->modelo}}</option>
-                                                                                                                           @endforeach   
+                                                    @foreach ($Modelo as $mo)
+                                                    <option value="{{$mo->modelo}}">{{$mo->modelo}}</option>
+                                                    @endforeach   
                                                     </select>
                                                 </div>
                                             
@@ -100,7 +98,7 @@
                                                         <select data-id="sms_template" name="sms_template" data-live-search="true" id="sms_template" class="btn-group bootstrap-select form-control">
                                                                 <option>Select Template</option>
                                                                 @foreach ($Plantilla as $pla)
-                                                        <option value="{{$pla->plantilla}} data-plantilla={{$pla->plantilla}}">{{$pla->nombreplantilla}}</option>
+                                                        <option value="{{$pla->plantilla}}">{{$pla->nombreplantilla}}</option>
                                                                 @endforeach    
                                 
                                                         </select>
@@ -205,22 +203,16 @@
                           var Modelo = $('#sms_modelo').val();
                           var Capacidade = $('#sms_capacidade').val();
                           var Cor = $('#sms_cor').val();
+                          var link = $('#sms_link').val();
+
                           var id = $(this).val();
                           var _url = $("#_url").val();
-                          var dataString = 'st_id=' + id;
+                          var dataString = id;
                           console.log(dataString);
 
-                          $.ajax
-                          ({
-                            type: "get",
-                            url: '/quicksms',
-                            data: dataString,
-                            cache: false,
-                            success: function (data) 
-                            {
-                              $("#sender_id").val(data.from);
+                              $("#message").val(dataString);
                 
-                              var str = data.message;
+                              var str = dataString;
                               var res = str.replace('[Modelo]', Modelo);
                               
                               var str2 = res;
@@ -228,12 +220,11 @@
                                
                               var str3 = res2;
                               var res3 = str3.replace('[Cor]', Cor);
-                              console.log(res);
                               
-                              var totalChar = $get_msg.val(res3).val().length;
-                              console.log(data.message);
+                              var str4 = res3;
+                              var res4 = str4.replace('[Link]', link);
                               
-                              
+                              var totalChar = $get_msg.val(res4).val().length;
                               
                               var remainingChar = maxCharInitial;
                 
@@ -249,8 +240,7 @@
                 
                                 $remaining.text(remainingChar + " caracteres restantes");
                                 $messages.text(messages + " Mensagem"+ '(s)');
-                            }
-                          });
+                        
                         });
                         
                         function get_character() {
