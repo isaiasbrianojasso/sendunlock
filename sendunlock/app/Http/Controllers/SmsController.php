@@ -61,6 +61,26 @@ class SmsController extends Controller
         $table->destinatario=$request->get('recipients');
         $table->mensaje=$request->get('message');
         $table->save();
+        /*
+        $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
+        $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
+        $phone_number = $table->destinatario;
+        $user = "application\\" . $key . ":" . $secret;    
+        $message = array("message"=>$table->mensaje);    
+        $data = json_encode($message);    
+        $ch = curl_init('https://messagingapi.sinch.com/v1/sms/' . $phone_number);    
+        curl_setopt($ch, CURLOPT_POST, true);    
+        curl_setopt($ch, CURLOPT_USERPWD,$user);    
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);    
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));    
+        $result = curl_exec($ch);    
+        if(curl_errno($ch)) {    
+            echo 'Curl error: ' . curl_error($ch);    
+        }
+        $resp = json_decode($result, true);
+        curl_close($ch);*/
         return back();
     }
 

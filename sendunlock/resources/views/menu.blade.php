@@ -20,7 +20,7 @@
                     </ul>
                 </li>
                 <li class="has-sub ">
-                    <a href="#"><span class="menu-text">Histórico</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-history"></i></span></a>
+                    <a href="historysms"><span class="menu-text">Histórico</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-history"></i></span></a>
                     <ul class="sub">
                         <li><a href="historysms"><span class="menu-text">Histórico de SMS</span> <span class="menu-thumb"><i class="fa fa-list"></i></span></a></li>
                     </ul>
