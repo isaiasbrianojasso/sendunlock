@@ -13,7 +13,6 @@
           <div class="row">
             <div class="col-lg-12">
             Atenção! A Rota 1 está em manutenção!<br>
-            
             Colocamos uma Rota Alternativa no momento.<br>
             Utilizem o Encurtador e Palavras como "iPhone e Apple" estão bloqueadas.
             A Rota Alternativa bloqueia algumas palavras!<br>
@@ -38,9 +37,10 @@
                                         <h3 class="panel-title">Enviar SMS</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <form class="" role="form"  action="" enctype="multipart/form-data">
+                                        <form  role="form"  action="{{ action('SmsController@store') }}" enctype="multipart/form-data">
                                          @method('POST')
                                            @csrf
+                                           <input type="hidden" value={{Auth::user()->id}} name="user_id" id="user_id">
                                              <div class="form-group">
                                             <label class="TitulosEnviaSMS  mt-4">SMS Gateway</label>
                                             <select class="btn-group bootstrap-select form-control" name="SMS Gateway">
@@ -153,21 +153,8 @@
                                                 <span class="help text-uppercase" id="remaining"></span>
                                                 <span class="help text-success" id="messages"></span>
                                             </div>
-            
-            
-                                            <div class="form-group send-mms" style="display: none;">
-                                                <label class="TitulosEnviaSMS">Select File</label>
-                                                <div class="form-group input-group input-group-file">
-                                                    <span class="input-group-btn">
-                                                        <span class="btn btn-primary btn-file">
-                                                            Browse <input type="file" class="form-control" name="image" accept="audio/*,video/*,image/*">
-                                                        </span>
-                                                    </span>
-                                                    <input type="text" class="form-control" readonly="">
-                                                </div>
-                                            </div>
-            
-            
+                  
+
                                             <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-send"></i> Enviar </button>
                                         </form>
             

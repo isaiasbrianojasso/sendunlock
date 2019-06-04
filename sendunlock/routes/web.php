@@ -11,7 +11,7 @@
 |
 */
 
-
+//ADMIN
 Route::get('/','UsuarioController@index');//controlador del usuario
 Route::get('/admin','AdministradorController@index');//controlador del administrador
 Route::get('/agregarusuario','UsuarioController@store');//agregar usuarios 
@@ -23,9 +23,17 @@ Route::get('/borrarplantilla/{id}','UsuarioController@borrarplantilla');//borra 
 Route::get('/agregarmodelo','UsuarioController@agregarmodelo');//nueva plantilla 
 Route::get('/borrarmodelo/{id}','UsuarioController@borrarmodelo');//nueva plantilla 
 
+//PERFIL
+Route::get('/profile','UsuarioController@profile');//mostrar perfil
+Route::get('/editprofile/{id}','UsuarioController@editprofile');//editar perfil
 
-Route::get('/quicksms','SmsController@index');//controlador del administrador
 
+//SMS
+Route::get('/quicksms','SmsController@index');//muestra de sms
+Route::get('/guardarsms','SmsController@store');//guardar sms
+Route::get('/historysms','SmsController@historysms');//guardar sms
+
+//AUTH
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 

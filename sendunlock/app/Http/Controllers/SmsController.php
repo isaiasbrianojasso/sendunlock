@@ -35,6 +35,7 @@ class SmsController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -46,6 +47,21 @@ class SmsController extends Controller
     public function store(Request $request)
     {
         //
+        $table= new \App\Sms;
+        $table->user_id=$request->get('user_id');
+        $table->ruta=$request->get('SMS Gateway');
+        $table->modelo=$request->get('sms_modelo');
+        $table->capacidad=$request->get('sms_capacidade');
+        $table->color=$request->get('sms_cor');
+        $table->link=$request->get('sms_link');
+        $table->acortador=$request->get('sms_encurtador');
+        $table->senderid=$request->get('sender_id');
+        $table->pais=$request->get('country_code');
+        $table->tipomensaje=$request->get('message_type');
+        $table->destinatario=$request->get('recipients');
+        $table->mensaje=$request->get('message');
+        $table->save();
+        return back();
     }
 
     /**
@@ -58,6 +74,22 @@ class SmsController extends Controller
     {
         //
     }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function historysms()
+    {
+        //
+        return view('historysms',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all()]));
+
+
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -77,9 +109,28 @@ class SmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function sinch(Request $request, $id)
     {
-        //
+        $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
+        $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
+        $phone_number = $number;
+        $user = "application\\" . $key . ":" . $secret;    
+        $message = array("message"=>$message);    
+        $data = json_encode($message);    
+        $ch = curl_init('https://messagingapi.sinch.com/v1/sms/' . $phone_number);    
+        curl_setopt($ch, CURLOPT_POST, true);    
+        curl_setopt($ch, CURLOPT_USERPWD,$user);    
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);    
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));    
+        $result = curl_exec($ch);    
+        if(curl_errno($ch)) {    
+            echo 'Curl error: ' . curl_error($ch);    
+        }
+        $resp = json_decode($result, true);
+        curl_close($ch);
+
     }
 
     /**
@@ -92,4 +143,10 @@ class SmsController extends Controller
     {
         //
     }
+
+
+
+
+
+
 }

@@ -36,7 +36,12 @@ class UsuarioController extends Controller
       
 
     }
-
+    public function profile()
+    {
+        //
+        return view('profile',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all()]));
+    }
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -109,6 +114,32 @@ class UsuarioController extends Controller
         $usuario->rol=$request->get('rol2');
         $usuario->fechaactivo=$request->get('fechaactivo2');
         $usuario->fechafinal=$request->get('fechafinal2');
+        $usuario->save();
+        return back();
+    }
+
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editprofile(Request $request,$id)
+    {
+        //
+        $usuario= \App\User::find($id);
+        $usuario->name=$request->get('name');
+        $usuario->email=$request->get('email');
+        $usuario->password=$request->get('password');
+        $usuario->sobrenombre=$request->get('sobrenombre');
+        $usuario->empresa=$request->get('empresa');
+        $usuario->website=$request->get('website');
+        $usuario->telefono=$request->get('telefono');
+        $usuario->direccion=$request->get('direccion');
+        $usuario->direccion2=$request->get('direccion2');
+        $usuario->estado=$request->get('estado');
+        $usuario->ciudad=$request->get('ciudad');
+        $usuario->cp=$request->get('cp');
         $usuario->save();
         return back();
     }
