@@ -40,8 +40,10 @@
                                         <form  role="form"  action="{{ action('SmsController@store') }}" enctype="multipart/form-data">
                                          @method('POST')
                                            @csrf
+                                           <input type="hidden" value={{Auth::user()->id}} name="id" id="id">
                                            <input type="hidden" value={{Auth::user()->id}} name="user_id" id="user_id">
-                                             <div class="form-group">
+
+                                           <div class="form-group">
                                             <label class="TitulosEnviaSMS  mt-4">SMS Gateway</label>
                                             <select class="btn-group bootstrap-select form-control" name="SMS Gateway">
                                                     <option value="97">Rota 1</option>

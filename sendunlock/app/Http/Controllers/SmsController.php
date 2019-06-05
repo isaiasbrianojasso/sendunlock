@@ -61,6 +61,11 @@ class SmsController extends Controller
         $table->destinatario=$request->get('recipients');
         $table->mensaje=$request->get('message');
         $table->save();
+         
+         $usuario= \App\User::find($table->user_id);
+         $usuario->creditos-=1;
+         $usuario->save();
+
         /*
         $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
         $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
@@ -81,6 +86,7 @@ class SmsController extends Controller
         }
         $resp = json_decode($result, true);
         curl_close($ch);*/
+        
         return back();
     }
 

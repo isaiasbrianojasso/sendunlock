@@ -53,7 +53,8 @@ class UsuarioController extends Controller
         //
         $usuario= new \App\User();
         $usuario->name=$request->get('name');
-        $usuario->password=$request->get('password');
+        $contraseñaantigua=$request->get('password');
+        $usuario->password=bcrypt($contraseñaantigua);
         $usuario->email=$request->get('email');
         $usuario->creditos=$request->get('creditos');
         $usuario->rol=$request->get('rol');
@@ -108,6 +109,8 @@ class UsuarioController extends Controller
         //
 
         $usuario= \App\User::find($id);
+        $contraseñaantigua=$request->get('password2');
+        $usuario->password=bcrypt($contraseñaantigua);
         $usuario->name=$request->get('name2');
         $usuario->email=$request->get('email2');
         $usuario->creditos=$request->get('creditos2');
@@ -180,7 +183,6 @@ class UsuarioController extends Controller
     public function borrarplantilla($id)
     {
         //
-
         $table = \App\Plantilla::findOrFail($id);
         $table->delete();
         return redirect('/admin');

@@ -364,6 +364,8 @@ $('#modalborrarmodelo').on('show.bs.modal', function(e){
                            <input class="form-control" type="text" name="name2" id="name2" placeholder="Nombre">
                            <label for="email2">Correo</label>
                            <input class="form-control" type="email" name="email2" id="email2" placeholder="Correo">
+                           <label for="email2">Password</label>
+                           <input class="form-control" type="password" name="password2" id="password2" placeholder="Password">
                            <label   for="creditos2">Creditos</label>
                            <input class="form-control" type="text" name="creditos2" id="creditos2" placeholder="Creditos">
                            <label  for="rol2">Selecionar Permisos </label>
