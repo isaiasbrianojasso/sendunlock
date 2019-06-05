@@ -4,6 +4,7 @@
 @section('html')
 <script type="text/javascript" src="js/script.js"></script>
 <body class="has-left-bar has-top-bar  left-bar-open " style="">
+    
 <section class="wrapper-bottom-sec">
         <div class="p-30"></div>
         <div class="p-15 p-t-none p-b-none m-l-10 m-r-10"></div>

@@ -120,4 +120,58 @@
       $("body").removeClass('left-bar-open')
     }
 </script>
+  @if(Auth::user()->creditos==0)  
+  <!-- Modal -->
+  <div class="modal fade" id="modalsincreditos" tabindex="-1" role="dialog" aria-labelledby="modalsincreditos" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Creditos Agotados</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            Creditos Agotados contacte al administrador para mas creditos
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <a class="btn btn-primary" href="/">Aceptar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+<script>
+window.onload = function() {
+$('#modalsincreditos').modal('show')
+}
+</script>
+@endif
+@if(Auth::user()->creditos<=10)  
+<!-- Modal -->
+<div class="modal fade" id="modalsincreditos" tabindex="-1" role="dialog" aria-labelledby="modalsincreditos" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Aviso</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+Los creditos se estan agotando restan {{Auth::user()->creditos}} creditos
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+window.onload = function() {
+$('#modalsincreditos').modal('show')
+}
+</script>
+@endif
+
 </body></html>@endsection

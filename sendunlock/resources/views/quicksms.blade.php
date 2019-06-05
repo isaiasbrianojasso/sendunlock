@@ -49,6 +49,32 @@
   }
 </script>
 @endif
+@if(Auth::user()->creditos<=10)  
+<!-- Modal -->
+<div class="modal fade" id="modalsincreditos" tabindex="-1" role="dialog" aria-labelledby="modalsincreditos" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Aviso</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          Los creditos se estan agotando restan {{Auth::user()->creditos}} creditos
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+window.onload = function() {
+$('#modalsincreditos').modal('show')
+}
+</script>
+@endif
   @if(Auth::user()->creditos>=1)
   <div class="container">
       <div class="row">
@@ -69,7 +95,6 @@
                                            @csrf
                                            <input type="hidden" value={{Auth::user()->id}} name="id" id="id">
                                            <input type="hidden" value={{Auth::user()->id}} name="user_id" id="user_id">
-
                                            <div class="form-group">
                                             <label class="TitulosEnviaSMS  mt-4">SMS Gateway</label>
                                             <select class="btn-group bootstrap-select form-control" name="SMS Gateway">
@@ -77,7 +102,6 @@
                                                     <option value="99">Rota 3</option>
                                             </select>
                                         </div>
-
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >Selecionar o Aparelho</label>
                                                     <select data-id="sms_modelo" class="btn-group bootstrap-select form-control" name="sms_modelo"  data-live-search="true" id="sms_modelo">

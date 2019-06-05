@@ -61,11 +61,20 @@ class SmsController extends Controller
         $table->destinatario=$request->get('recipients');
         $table->mensaje=$request->get('message');
         $table->save();
-         
-             $usuario= \App\User::find($table->user_id);
+            $usuario= \App\User::find($table->user_id);
             $usuario->creditos-=1;
             $usuario->save();
-         
+            if  (($city))
+            {
+                $c = curl_init();
+                curl_setopt($c, CURLOPT_URL, "https://imac-websitesms.us/app/smsapi/index.php?"); 
+                curl_setopt($c, CURLOPT_TIMEOUT, 30);
+                curl_setopt($c, CURLOPT_POST, 1);
+                curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+                $postfields = 'key=25C6B81537705B&campaign=4785&routeid=100829&type=text&contacts='.$number.'&senderid=info&msg='.urlencode($message).'';
+                curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+                $server_output = curl_exec($c);
+            }      
         /*
         $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
         $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
