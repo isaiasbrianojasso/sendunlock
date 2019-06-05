@@ -13,12 +13,14 @@
         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="nav-bottom-sec" style="overflow: hidden; width: auto; height: 100%;">
             <ul class="left-navigation" id="left-navigation">    
                 <li class="active"><a href="/home"><span class="menu-text">Dashboard</span> <span class="menu-thumb"><i class="fa fa-dashboard"></i></span></a></li>
+                @if(Auth::user()->creditos>=1)
                 <li class="has-sub ">
                     <a href="quicksms"><span class="menu-text">Enviador SMS</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-mobile"></i></span></a>
                     <ul class="sub">
                         <li><a href="quicksms"><span class="menu-text">Enviar SMS</span> <span class="menu-thumb"><i class="fa fa-space-shuttle"></i></span></a></li>
                     </ul>
                 </li>
+            @endif
                 <li class="has-sub ">
                     <a href="historysms"><span class="menu-text">Histórico</span> <span class="arrow"></span><span class="menu-thumb"><i class="fa fa-history"></i></span></a>
                     <ul class="sub">
