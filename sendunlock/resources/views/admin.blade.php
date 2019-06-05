@@ -113,7 +113,7 @@
         </div>
         <div class="p-15 p-t-none p-b-none">
             <div class="row">
-                <div class="col-12-md">
+                <div class="col-6-md">
                     <div class="panel-body ">
                         <div class="row">
                             <div class="panel">
@@ -154,6 +154,69 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="p-15 p-t-none p-b-none">
+                <div class="row">
+                    <div class="col-6-md">
+                        <div class="panel-body ">
+                            <div class="row">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Agregar Sender ID</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover table-ultra-responsive">
+                                            <thead>
+                                                    <tr>
+                                                            <th>#ID</th>
+                                                            <th>SenderID</th>
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach($Sistema as $sis)
+                                                    <tr>
+                                                    <td scope="row">{{$sis->id}}</td>
+                                                    <td>{{$sis->senderid}}</td>
+                                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#modaleditarsenderid"  href="#modaleditarsenderid"
+                                                         data-senderid="{{$sis->senderid}}" data-id="{{$sis->id}}" >Editar </a>
+
+
+
+                                                        <a class="btn btn-danger" data-toggle="modal" data-target="#modaleliminarsenderid"  href="#modaleliminarsenderid"
+                                                        data-id="{{$sis->id}}">Eliminar </a></td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                        </table>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"  data-target="#modalagregarsenderid">
+                                         Agregar SenderID
+                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </section>
 </main>
 <script src="./css/jquery-1.10.2.min.js"></script>
@@ -229,7 +292,14 @@ $('#modalborrarplantilla').on('show.bs.modal', function(e){
     $("#borrarplantilla").attr("href",'/borrarplantilla/'+id);
 
 });
+////////////////modal borrar Plantilla
+$('#modaleliminarsenderid').on('show.bs.modal', function(e){
+       $('#id4').html($(e.relatedTarget).data('id'));
+        var id = $(e.relatedTarget).data().id;
+       $(e.currentTarget).find('#id4').val(id);
+    $("#eliminarsenderid").attr("href",'/eliminarsenderid/'+id);
 
+});
 /*
 ////////////////modal editar Plantilla
 $('#modaleditarplantilla').on('show.bs.modal', function(e){
@@ -248,6 +318,12 @@ $('#modalborrarmodelo').on('show.bs.modal', function(e){
        $(e.currentTarget).find('#id5').val(id);
     $("#w5s").attr("href",'/borrarmodelo/'+id);
 
+});
+$('#modaleditarsenderid').on('show.bs.modal', function(e){
+       var id = $(e.relatedTarget).data().id;
+       $("#editarsenderid").attr("action",'/editsenderid/'+id);
+       var id = $(e.relatedTarget).data().senderid;
+     $(e.currentTarget).find('#senderid1').val(id);
 });
             });
         </script>
@@ -520,4 +596,78 @@ $('#modalborrarmodelo').on('show.bs.modal', function(e){
         </div>
     </div>
 </div>
+
+<!-- Modal  Agregar SenderId-->
+<div class="modal fade" id="modalagregarsenderid" tabindex="-1" role="dialog" aria-labelledby="modalagregarsenderid" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar SenderID</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                    <form action="{{ action('UsuarioController@senderid') }}">
+                            @csrf
+                            <label  for="senderid">Sender ID</label>
+                           <input class="form-control" type="text" name="senderid" id="senderid" placeholder="Sender ID">
+                        </div>
+                       <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                           <button type="submit"  class="btn btn-primary" >Agregar Sender ID</button>
+                       </form>   
+                        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar SenderID-->
+<div class="modal fade" id="modaleditarsenderid" tabindex="-1" role="dialog" aria-labelledby="modaleditarsenderid" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar SenderID</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                        <form name="editarsenderid" id="editarsenderid" action="">
+                                @csrf
+                                <label  for="senderid">Sender ID</label>
+                               <input class="form-control" type="text" name="senderid1" id="senderid1" placeholder="Sender ID">
+                            </div>
+                           <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                               <button type="submit"  class="btn btn-primary" >Editar Sender ID</button>
+                           </form>   
+                            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal  Borrar Modelo-->
+<div class="modal fade" id="modaleliminarsenderid" tabindex="-1" role="dialog" aria-labelledby="modaleliminarsenderid" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar SenderID</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                   Seguro que quieres borrar este  SenderID?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" ><a class="text-white" name="eliminarsenderid" id="eliminarsenderid" href="">Eliminar</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

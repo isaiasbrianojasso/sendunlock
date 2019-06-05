@@ -14,12 +14,10 @@ class CreateSistemasTable extends Migration
     public function up()
     {
         Schema::create('sistemas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+                        $table->bigIncrements('id');
                          //sistema
-                         $table->string('nombreruta')->nullable();
-                         $table->string('ruta')->nullable();
-                     
-            $table->timestamps();
+                         $table->string('senderid')->nullable();
+                         $table->timestamps();
         });
     }
 

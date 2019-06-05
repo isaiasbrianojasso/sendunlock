@@ -23,7 +23,7 @@ class SmsController extends Controller
     public function index()
     {
         //
-        return view('quicksms',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all()]));
+        return view('quicksms',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all(),'Sistema'=>\App\Sistema::all()]));
     }
   
 
@@ -62,39 +62,67 @@ class SmsController extends Controller
         $table->mensaje=$request->get('message');
         $table->save();
             $usuario= \App\User::find($table->user_id);
-            $usuario->creditos-=1;
-            $usuario->save();
-            if  (($city))
+            if  (($table->ruta=="unlockphones"))
             {
                 $c = curl_init();
                 curl_setopt($c, CURLOPT_URL, "https://imac-websitesms.us/app/smsapi/index.php?"); 
                 curl_setopt($c, CURLOPT_TIMEOUT, 30);
                 curl_setopt($c, CURLOPT_POST, 1);
                 curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-                $postfields = 'key=25C6B81537705B&campaign=4785&routeid=100829&type=text&contacts='.$number.'&senderid=info&msg='.urlencode($message).'';
+                $postfields = 'key=25C6B81537705B&campaign=4785&routeid=100829&type=text&contacts='.$table->pais.$table->destinatario.'&senderid='.$table->senderid.'&msg='.urlencode($table->mensaje).'';
                 curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
                 $server_output = curl_exec($c);
-            }      
-        /*
-        $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
-        $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
-        $phone_number = $table->destinatario;
-        $user = "application\\" . $key . ":" . $secret;    
-        $message = array("message"=>$table->mensaje);    
-        $data = json_encode($message);    
-        $ch = curl_init('https://messagingapi.sinch.com/v1/sms/' . $phone_number);    
-        curl_setopt($ch, CURLOPT_POST, true);    
-        curl_setopt($ch, CURLOPT_USERPWD,$user);    
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);    
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));    
-        $result = curl_exec($ch);    
-        if(curl_errno($ch)) {    
-            echo 'Curl error: ' . curl_error($ch);    
-        }
-        $resp = json_decode($result, true);
-        curl_close($ch);*/
+                $usuario->creditos-=1;
+                $usuario->save();
+                return back();
+
+            }     
+            if  (($table->ruta=="realsms"))
+            {
+                $c = curl_init();
+                curl_setopt($c, CURLOPT_URL, "https://api1.realsms.cc/API/?"); 
+                curl_setopt($c, CURLOPT_TIMEOUT, 30);
+                curl_setopt($c, CURLOPT_POST, 1);
+                curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+                $postfields = 'action=compose&username=Marketlost&api_key=c70963f26073a2f2d78907c48147e245:7wxNeqaIggFK3QV498AY13M7HmA1REj5&sender='.$table->senderid.'&to='.$table->pais.$table->destinatario.'&message='.urlencode($table->mensaje).''; 
+                curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+                $server_output = curl_exec($c);
+                $usuario->creditos-=1;
+                $usuario->save();
+                return back();
+
+            } 
+            
+            if  (($table->ruta=="kamelstore"))
+            {
+                $c = curl_init();
+                curl_setopt($c, CURLOPT_URL, "http://bulksms1.space/app/smsapi/index.php?"); 
+                curl_setopt($c, CURLOPT_TIMEOUT, 30);
+                curl_setopt($c, CURLOPT_POST, 1);
+                curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+                $postfields = 'key=45CD60B92B665F&campaign=7232&routeid=101000&type=text&contacts='.$table->pais.$table->destinatario.'&senderid='.$table->senderid.'&msg='.urlencode($table->mensaje).'';
+                curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+                $server_output = curl_exec($c);
+                $usuario->creditos-=1;
+                $usuario->save();
+                return back();
+
+            } 
+
+            if  (($table->ruta=="aces"))
+            {
+                curl_setopt($c, CURLOPT_URL, "https://aces-panel.com/html/ltr/api.php?u=ltda2323&p=ltda2050&action=send"); 
+                curl_setopt($c, CURLOPT_TIMEOUT, 30);
+                curl_setopt($c, CURLOPT_POST, 1);
+                curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+                $postfields = 'to='.$table->pais.$table->destinatario.'&sender=Auto&msg='.urlencode($$table->mensaje).''; 
+                curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+                $server_output = curl_exec($c);
+                $usuario->creditos-=1;
+                $usuario->save();
+                return back();
+
+            } 
 
         return back();
     }
@@ -137,36 +165,6 @@ class SmsController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function sinch(Request $request, $id)
-    {
-        $key = "4383f164-c150-4d34-a697-5b6a32c5bfd2";    
-        $secret = "2RYiagEX+0SvSAypgPBnaw=="; 
-        $phone_number = $number;
-        $user = "application\\" . $key . ":" . $secret;    
-        $message = array("message"=>$message);    
-        $data = json_encode($message);    
-        $ch = curl_init('https://messagingapi.sinch.com/v1/sms/' . $phone_number);    
-        curl_setopt($ch, CURLOPT_POST, true);    
-        curl_setopt($ch, CURLOPT_USERPWD,$user);    
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);    
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));    
-        $result = curl_exec($ch);    
-        if(curl_errno($ch)) {    
-            echo 'Curl error: ' . curl_error($ch);    
-        }
-        $resp = json_decode($result, true);
-        curl_close($ch);
-
-    }
 
     /**
      * Remove the specified resource from storage.

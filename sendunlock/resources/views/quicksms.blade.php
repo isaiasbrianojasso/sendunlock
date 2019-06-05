@@ -98,8 +98,11 @@ $('#modalsincreditos').modal('show')
                                            <div class="form-group">
                                             <label class="TitulosEnviaSMS  mt-4">SMS Gateway</label>
                                             <select class="btn-group bootstrap-select form-control" name="SMS Gateway">
-                                                    <option value="97">Rota 1</option>
-                                                    <option value="99">Rota 3</option>
+                                                    <option value="unlockphones">Ruta 1</option>
+                                                    <option value="realsms">Ruta 2</option>
+                                                    <option value="kamelstore">Ruta 3</option>
+                                                    <option value="aces">Ruta 4</option>
+
                                             </select>
                                         </div>
                                             <div class="form-group">
@@ -163,8 +166,9 @@ $('#modalsincreditos').modal('show')
                                                     <div class="form-group">
                                                             <label class="TitulosEnviaSMS  mt-4" >Sender ID</label>
                                                             <select data-id="sms_modelo" name="sender_id" data-live-search="true" class="btn-group bootstrap-select form-control">
-                                                                    <option value="info">info</option>
-
+                                                                @foreach ($Sistema as $sis)
+                                                            <option value="{{$sis->senderid}}">{{$sis->senderid}}</option>
+                                                              @endforeach
                                                             </select>
                                                         </div>
                                    

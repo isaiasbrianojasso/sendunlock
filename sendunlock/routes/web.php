@@ -33,6 +33,11 @@ Route::get('/quicksms','SmsController@index');//muestra de sms
 Route::get('/guardarsms','SmsController@store');//guardar sms
 Route::get('/historysms','SmsController@historysms');//guardar sms
 
+//SenderID
+Route::get('/senderid','UsuarioController@senderid');//agregar senderid
+Route::get('/editsenderid/{id}','UsuarioController@editsenderid');//agregar senderid
+Route::get('/eliminarsenderid/{id}','UsuarioController@eliminarsenderid');//agregar senderid
+
 //AUTH
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

@@ -8,7 +8,7 @@ use App\User;
 use App\Plantilla;
 use App\Sms;
 use App\Modelo;
-
+use App\Sistema;
 class UsuarioController extends Controller
 {
     /**
@@ -23,7 +23,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        return view('home',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all()]));
+        return view('home',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all(),'Sistema'=>\App\Sistema::all()]));
     }
   
     /**
@@ -60,6 +60,21 @@ class UsuarioController extends Controller
         $usuario->rol=$request->get('rol');
         $usuario->fechaactivo=$request->get('fechaactivo');
         $usuario->fechafinal=$request->get('fechafinal');
+        $usuario->save();
+        return back();
+
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function senderid(Request $request)
+    {
+        //
+        $usuario= new \App\Sistema();
+        $usuario->senderid=$request->get('senderid');
         $usuario->save();
         return back();
 
@@ -120,6 +135,21 @@ class UsuarioController extends Controller
         $usuario->save();
         return back();
     }
+ /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editsenderid(Request $request,$id)
+    {
+        //
+
+        $usuario= \App\Sistema::find($id);
+        $usuario->senderid=$request->get('senderid1');
+        $usuario->save();
+        return back();
+    }
 
         /**
      * Show the form for editing the specified resource.
@@ -174,6 +204,20 @@ class UsuarioController extends Controller
         return redirect('/admin');
     }
 
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function eliminarsenderid($id)
+    {
+        //
+
+        $table = \App\Sistema::findOrFail($id);
+        $table->delete();
+        return redirect('/admin');
+    }
        /**
      * Remove the specified resource from storage.
      *

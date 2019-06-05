@@ -16,7 +16,7 @@ class AdministradorController extends Controller
     public function index()
     {
         //
-        return view('admin',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all() ]));
+        return view('admin',(['Usuario'=> \App\User::all(),'Plantilla'=>\App\Plantilla::all(),'Sms'=>\App\Sms::all(),'Modelo'=>\App\Modelo::all(),'Sistema'=>\App\Sistema::all() ]));
     
     }
     public function __construct()
