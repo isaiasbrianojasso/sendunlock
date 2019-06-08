@@ -159,10 +159,10 @@
         <div class="p-15 p-t-none p-b-none">
                 <div class="row">
                     <div class="col-6-md">
-                        <div class="panel-body ">
+                        <div class="panel-body  ">
                             <div class="row">
                                 <div class="panel">
-                                    <div class="panel-heading">
+                                    <div class="panel-heading bg-warning">
                                         <h3 class="panel-title">Agregar Sender ID</h3>
                                     </div>
                                     <div class="panel-body">
@@ -180,9 +180,6 @@
                                                     <td>{{$sis->senderid}}</td>
                                                     <td><a class="btn btn-warning" data-toggle="modal" data-target="#modaleditarsenderid"  href="#modaleditarsenderid"
                                                          data-senderid="{{$sis->senderid}}" data-id="{{$sis->id}}" >Editar </a>
-
-
-
                                                         <a class="btn btn-danger" data-toggle="modal" data-target="#modaleliminarsenderid"  href="#modaleliminarsenderid"
                                                         data-id="{{$sis->id}}">Eliminar </a></td>
                                                     </tr>
@@ -202,21 +199,7 @@
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
     </section>
 </main>
 <script src="./css/jquery-1.10.2.min.js"></script>

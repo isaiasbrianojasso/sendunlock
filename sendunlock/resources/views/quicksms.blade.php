@@ -2,26 +2,29 @@
 @extends('menu')
 @section('menu')
 @section('html')
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header" style="background: currentColor;">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title" style="color: white;text-align: center;">Rota Alternativa</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12">
-            Atenção! A Rota 1 está em manutenção!<br>
-            Colocamos uma Rota Alternativa no momento.<br>
-            Utilizem o Encurtador e Palavras como "iPhone e Apple" estão bloqueadas.
-            A Rota Alternativa bloqueia algumas palavras!<br>
-            Por isso sempre que enviar um SMS, verifique o Status no Histórico!</div> 
-          </div>
-        </div>
+<script type="text/javascript" src="js/script.js"></script>
+
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="modalenviar" tabindex="-1" role="dialog" aria-labelledby="modalenviar" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">SMS Enviado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        Enviado
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
+</div>
   @if(Auth::user()->creditos==0)  
                     <!-- Modal -->
                     <div class="modal fade" id="modalsincreditos" tabindex="-1" role="dialog" aria-labelledby="modalsincreditos" aria-hidden="true">
@@ -89,15 +92,18 @@ $('#modalsincreditos').modal('show')
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Enviar SMS</h3>
                                     </div>
-                                    <div class="panel-body">
-                                        <form  role="form"  action="{{ action('SmsController@store') }}" enctype="multipart/form-data">
+                                    <div class="panel-body" style="strong, b{
+                                      font-weight: bold;
+                                  }">
+                                        <form  role="form"  name="smsenviar" id="smsenviar"  enctype="multipart/form-data">
                                          @method('POST')
                                            @csrf
                                            <input type="hidden" value={{Auth::user()->id}} name="id" id="id">
                                            <input type="hidden" value={{Auth::user()->id}} name="user_id" id="user_id">
                                            <div class="form-group">
-                                            <label class="TitulosEnviaSMS  mt-4">SMS Gateway</label>
-                                            <select class="btn-group bootstrap-select form-control" name="SMS Gateway">
+                                            <label class="TitulosEnviaSMS  mt-4" >Gateway</label>
+                                            <select class="btn-group bootstrap-select form-control" onchange="hourChange(this);" name="SMS Gateway" id="SMS Gateway">
+                                                    <option value="">Selecciona una ruta</option>
                                                     <option value="unlockphones">Ruta 1</option>
                                                     <option value="realsms">Ruta 2</option>
                                                     <option value="kamelstore">Ruta 3</option>
@@ -108,7 +114,28 @@ $('#modalsincreditos').modal('show')
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >Selecionar o Aparelho</label>
                                                     <select data-id="sms_modelo" class="btn-group bootstrap-select form-control" name="sms_modelo"  data-live-search="true" id="sms_modelo">
-                                                    @foreach ($Modelo as $mo)
+                                                        <option value="">Selecionar o Aparelho</option>
+                                                        <option value="lPHONE 4">lPHONE 4</option>
+                                                        <option value="lPHONE 4S">lPHONE 4S</option>
+                                                        <option value="lPHONE 5">lPHONE 5</option>
+                                                        <option value="lPHONE 5C">lPHONE 5C</option>
+                                                        <option value="lPHONE 5S">lPHONE 5S</option>
+                                                        <option value="lPHONE 6">lPHONE 6</option>
+                                                        <option value="lPHONE 6 Plus">lPHONE 6 Plus</option>
+                                                        <option value="lPHONE 6S">lPHONE 6S</option>
+                                                        <option value="lPHONE 6S Plus">lPHONE 6S Plus</option>
+                                                        <option value="lPHONE SE">lPHONE SE</option>
+                                                        <option value="lPHONE 7">lPHONE 7</option>
+                                                        <option value="lPHONE 7 Plus">lPHONE 7 Plus</option>
+                                                        <option value="lPHONE 8">lPHONE 8</option>
+                                                        <option value="lPHONE 8 Plus">lPHONE 8 Plus</option>
+                                                        <option value="lPHONE X">lPHONE X</option>
+                                                        <option value="lPHONE XR">lPHONE XR</option>
+                                                        <option value="lPHONE XS">lPHONE XS</option>
+                                                        <option value="lPHONE XS MAX">lPHONE XS MAX</option>
+                                                        <option value="lPAD">lPAD</option>
+                                                        <option value="lPOD">lPOD</option>
+                                                        <option value="lPHONE">lPHONE</option>                                                      @foreach ($Modelo as $mo)
                                                     <option value="{{$mo->modelo}}">{{$mo->modelo}}</option>
                                                     @endforeach   
                                                     </select>
@@ -117,6 +144,13 @@ $('#modalsincreditos').modal('show')
                                                 <div class="form-group">
                                                         <label class="TitulosEnviaSMS  mt-4" >Capacidade</label>
                                                         <select data-id="sms_modelo" name="sms_capacidade" data-live-search="true" id="sms_capacidade" class="btn-group bootstrap-select form-control">
+                                                            <option value="">Selecionar a Capacidade</option>
+                                                            <option value="8GB">8GB</option>
+                                                            <option value="16GB">16GB</option>
+                                                            <option value="32GB">32GB</option>
+                                                            <option value="64GB">64GB</option>
+                                                            <option value="128GB">128GB</option>
+                                                            <option value="256GB">256GB</option>
                                                                 @foreach ($Modelo as $cap)
                                                                 <option value="{{$cap->capacidad}}">{{$cap->capacidad}}</option>
                                                                 @endforeach   
@@ -127,7 +161,19 @@ $('#modalsincreditos').modal('show')
                                                     <div class="form-group">
                                                             <label class="TitulosEnviaSMS  mt-4" >Cor</label>
                                                             <select data-id="sms_modelo" name="sms_cor" data-live-search="true" id="sms_cor" class="btn-group bootstrap-select form-control">
-                                                                <option value="">Seleciona Color</option>
+                                                                <option value="">Selecionar a Cor</option>
+                                                                <option value="Silver">Silver</option>
+                                                                <option value="Space Gray">Space Gray</option>					  
+                                                                <option value="Gold">Gold</option>
+                                                                <option value="Rose Gold">Rose Gold</option>
+                                                                <option value="Black">Black</option>
+                                                                <option value="Jet Black">Jet Black</option>
+                                                                <option value="Red">Red</option>
+                                                                <option value="White">White</option>
+                                                                <option value="Blue">Blue</option>
+                                                                <option value="Green">Green</option>
+                                                                <option value="Yellow">Yellow</option>
+                                                                <option value="Pink">Pink</option>
                                                                 @foreach ($Modelo as $cor)
                                                                 <option value="{{$cor->color}}">{{$cor->color}}</option>
                                                                 @endforeach    
@@ -173,11 +219,13 @@ $('#modalsincreditos').modal('show')
                                                         </div>
                                    
             
-
+                                                        @if ($errors->any())
+                                                        {{ implode('', $errors->all('<div>:message</div>')) }}
+                                                @endif
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >País</label>
                                                     <select data-id="sms_modelo" name="country_code" data-live-search="true" class="btn-group bootstrap-select form-control">
-                                                            <option value="0">Exist on phone number</option>
+                                                            <option value="">Exist on phone number</option>
                                                             <option value="55" selected="selected">Brazil (55)</option>
                                                     </select>
                                                 </div>
@@ -185,7 +233,7 @@ $('#modalsincreditos').modal('show')
 
                                             <div class="form-group">
                                                 <label class="TitulosEnviaSMS">Destinatário</label>
-                                                <textarea class="form-control" rows="4" name="recipients" id="recipients"></textarea>
+                                                <textarea class="form-control" rows="4" name="recipients" id="recipients" autocomplete="off"></textarea>
                                                 <!--<span class="help text-uppercase">Inserir números separados por vírgula (,) Ex. 8801721900000,8801721900001</span>-->
                                                 <span class="help text-uppercase">DDD+Número [Ex: 11991544588]</span>
                                                 <span class="help text-uppercase pull-right">Número Total De Destinatários
@@ -209,7 +257,7 @@ $('#modalsincreditos').modal('show')
                                             </div>
                   
 
-                                            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-send"></i> Enviar </button>
+                                            <button type="submit" name="enviar" id="enviar" class="btn btn-success btn-sm"><i class="fa fa-send"></i> Enviar </button>
                                         </form>
             
                                     </div>
@@ -217,13 +265,79 @@ $('#modalsincreditos').modal('show')
                             </div>
             
                         </div>
-            
+                        <script>
+                          /*
+                            document.getElementById("SMS Gateway").onchange = function() {myFunction()};
+                            function myFunction() {
+                              var res = this.value;
+                               alert(this.value);
+                               console.log(res);
+                            }
+
+                          */
+
+  function hourChange(selectObj) {
+   var selectIndex=selectObj.selectedIndex;
+   var selectValue=selectObj.options[selectIndex].text;
+   //console.log(selectValue);
+   
+   if (selectValue == "Ruta 1") 
+   {
+    $("#smsenviar").attr("action",("{{ action('SmsController@unlockphones') }} "));
+    $('#myModal').modal('show');
+  
+  }
+       
+    
+    if (selectValue == "Ruta 2") 
+   {
+    $("#smsenviar").attr("action",("{{ action('SmsController@realsms') }} "));   
+    console.log(smsenviar);
+  }
+  if (selectValue == "Ruta 3") 
+   {
+    $("#smsenviar").attr("action",("{{ action('SmsController@kamelstore') }} "));  
+    console.log(smsenviar);
+
+  }
+
+  if (selectValue == "Ruta 4") 
+   {
+   $("#smsenviar").attr("action",("{{ action('SmsController@aces') }} "));
+   console.log(smsenviar);
+
+  }
+
+ }
+                            </script>
                     </div>
+                  </body>
+
                     <script type="text/javascript">
                         /**
                         $( document ).ready(function() {
                         $('#myModal').modal({show:true});
                         });
+                        <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background: currentColor;">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title" style="color: white;text-align: center;">Rota Alternativa</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+            Atenção! A Rota 1 está em manutenção!<br>
+            Colocamos uma Rota Alternativa no momento.<br>
+            Utilizem o Encurtador e Palavras como "iPhone e Apple" estão bloqueadas.
+            A Rota Alternativa bloqueia algumas palavras!<br>
+            Por isso sempre que enviar um SMS, verifique o Status no Histórico!</div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
                 **/		
                     </script>
                     
@@ -245,7 +359,8 @@ $('#modalsincreditos').modal('show')
                           var Capacidade = $('#sms_capacidade').val();
                           var Cor = $('#sms_cor').val();
                           var link = $('#sms_link').val();
-
+                          var now = new Date(Date.now());
+                          var date = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
                           var id = $(this).val();
                           var _url = $("#_url").val();
                           var dataString = id;
@@ -264,8 +379,11 @@ $('#modalsincreditos').modal('show')
                               
                               var str4 = res3;
                               var res4 = str4.replace('[Link]', link);
+
+                              var str5 = res4;
+                              var res5 = str5.replace('[Date]', date);
                               
-                              var totalChar = $get_msg.val(res4).val().length;
+                              var totalChar = $get_msg.val(res5).val().length;
                               
                               var remainingChar = maxCharInitial;
                 
@@ -343,6 +461,10 @@ $('#modalsincreditos').modal('show')
                           $('.number_of_recipients').text(total);
                 
                         });
+                        
+                        $( "#enviar" ).click(function() {
+  alert( "SMS Enviado" );
+});
                       });
                     </script>
                 </section>

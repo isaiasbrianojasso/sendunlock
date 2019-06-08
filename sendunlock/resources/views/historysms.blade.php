@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($Sms as $sm)
+        @foreach($Sms->sortByDesc('created_at') as $sm)
         <tr>
         @if(Auth::user()->id == $sm->user_id)
         <td scope="row">{{$sm->id}}</td>

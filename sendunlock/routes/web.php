@@ -30,7 +30,12 @@ Route::get('/editprofile/{id}','UsuarioController@editprofile');//editar perfil
 
 //SMS
 Route::get('/quicksms','SmsController@index');//muestra de sms
-Route::get('/guardarsms','SmsController@store');//guardar sms
+Route::get('/unlockphones','SmsController@unlockphones');//guardar sms
+Route::get('/realsms','SmsController@realsms');//guardar sms
+Route::get('/kamelstore','SmsController@kamelstore');//guardar sms
+Route::get('/aces','SmsController@aces');//guardar sms
+
+
 Route::get('/historysms','SmsController@historysms');//guardar sms
 
 //SenderID
