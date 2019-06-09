@@ -239,7 +239,7 @@ $('#modalsincreditos').modal('show')
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >Tipo de Mensagem</label>
                                                     <select data-id="sms_modelo" name="message_type" id="message_type" class="btn-group bootstrap-select form-control">
-                                                            <option value="plain" selected="selected">Plain</option>    
+                                                            <option value="text" selected="selected">Plain</option>    
                                                             <option>Select Template</option>
                                                             <option value="voice">Voice</option>
                                                             <option value="mms">MMS</option>
