@@ -190,8 +190,9 @@ $('#modalsincreditos').modal('show')
 
                                             <div class="form-group">
                                                     <label class="TitulosEnviaSMS  mt-4" >Encurtador</label>
-                                                    <select data-id="sms_modelo"  name="sms_encurtador" data-live-search="true" id="sms_encurtador" class="btn-group bootstrap-select form-control">
-                                                            <option value="https://ios.appIeid-lbusca.com">https://ios.appIeid-lbusca.com</option>
+                                                    <select data-id="sms_modelo" onchange="smsencurtador(this);"  name="sms_encurtador" data-live-search="true" id="sms_encurtador" class="btn-group bootstrap-select form-control">
+                                                            <option value="">Seleccion ShortURL</option>
+                                                            <option value="https://ios.ibusca.info">Shortme</option>
                                                     </select>
                                                 </div>
                                             
@@ -205,10 +206,6 @@ $('#modalsincreditos').modal('show')
                                 
                                                         </select>
                                                     </div>
-
-                                            
-                        
-            
                                                     <div class="form-group">
                                                             <label class="TitulosEnviaSMS  mt-4" >Sender ID</label>
                                                             <select data-id="sms_modelo" name="sender_id" data-live-search="true" class="btn-group bootstrap-select form-control">
@@ -310,6 +307,7 @@ $('#modalsincreditos').modal('show')
 
  }
                             </script>
+
                     </div>
                   </body>
 
@@ -364,8 +362,7 @@ $('#modalsincreditos').modal('show')
                           var id = $(this).val();
                           var _url = $("#_url").val();
                           var dataString = id;
-                          console.log(dataString);
-
+                          
                               $("#message").val(dataString);
                 
                               var str = dataString;
@@ -463,10 +460,51 @@ $('#modalsincreditos').modal('show')
                         });
                         
                         $( "#enviar" ).click(function() {
-  alert( "SMS Enviado" );
-});
+                        alert( "SMS Enviado" );
+                        });
                       });
                     </script>
+              
+                      <script>
+                      function smsencurtador(selectObj) 
+                      {
+                      var selectIndex=selectObj.selectedIndex;
+                      var selectValue=selectObj.options[selectIndex].text;
+                      var link = $('#sms_link').val();
+                      var short= "https://ios.ibusca.info/api?create&key=mdM2Ryzau3ngcPtvYjWlB4ErpZJID1FGK8q&link="+link;
+                      console.log(short);
+	                    // Esta es la variable que vamos a pasar
+                      var miVariableJS=$("#sms_link").val();
+                      // Enviamos la variable de javascript a archivo.php
+                      $.post("short.php",{"texto":miVariableJS},function(respuesta){
+                       // alert(respuesta);
+                      var obj = jQuery.parseJSON(respuesta);
+                      alert(obj.Link);
+
+                    //  $("#sms_link").attr("value",(obj.Link));
+                      document.getElementById("sms_link").value =obj.Link;
+                      });
+
+
+
+                     }
+/*
+          $.ajax
+          ({
+            type: "POST",
+            url: short,
+            cache: false,
+            success: function (data) {
+            console.log(data);
+            }
+            });/
+            
+                     
+                     */
+               
+                      
+                                                 
+                     </script>
                 </section>
       </div>
 
